@@ -30,7 +30,7 @@ def validateParams(sOn, sOff, herd, nAgents, echo=False):
         -1 - error
     """
     maxSigma=np.max(np.array([sOn,sOff]))
-    maxProb=switchProb(maxSigma,herd,nAgents)
+    maxProb=switchProb(maxSigma,herd,nAgents,nAgents)
     if maxProb>=1:
         if echo:
             print(sOn,sOff,herd,nAgents,sep=",")
@@ -43,14 +43,14 @@ def validateParams(sOn, sOff, herd, nAgents, echo=False):
         return 0
     if echo:
         minSigma=np.min(np.array([sOn,sOff]))
-        minProb=switchProb(minSigma,herd,0)
+        minProb=switchProb(minSigma,herd,0,nAgents)
         print(sOn,sOff,herd,nAgents,sep=",")
         print("GOOD! Probability is within [{:.2f}; {:.2f}]".format(minProb,maxProb))
     return 1
 
 @jit(nopython=True)
-def switchProb(sigma,herd,nOthers):
-    return sigma+herd*nOthers
+def switchProb(sigma,herd,nOthers,nTotal):
+    return sigma+herd*nOthers/nTotal
 
 @jit(nopython=True)
 def step(sOn, sOff, herd, state):
@@ -86,8 +86,8 @@ def step(sOn, sOff, herd, state):
     
     # calculate flipping probabilities
     prob=np.zeros(nTotal)
-    prob[_istate==1]=switchProb(sOff,herd,nTotal-nOn)
-    prob[_istate==-1]=switchProb(sOn,herd,nOn)
+    prob[_istate==1]=switchProb(sOff,herd,nTotal-nOn,nTotal)
+    prob[_istate==-1]=switchProb(sOn,herd,nOn,nTotal)
     
     # do the flip
     r=np.random.rand(nTotal)
