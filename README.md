@@ -17,4 +17,7 @@ because it gives a preformance boost.
 
 ## Reference
 
-1. A. Kononovicius. *Noisy voter model for the anomalous diffusion of parliamentary presence*. [arXiv:2001.01479 [physics.soc-ph]](https://arxiv.org/abs/2001.01479).
+1. A. Kononovicius. *Noisy voter model for the anomalous diffusion of parliamentary presence*.
+Journal of Statistical Mechanics 2020: 063405 (2020).
+doi: [10.1088/1742-5468/ab8c39](https://doi.org/10.1088/1742-5468/ab8c39).
+[arXiv:2001.01479 [physics.soc-ph]](https://arxiv.org/abs/2001.01479).
